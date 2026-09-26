@@ -186,11 +186,19 @@ function App() {
 
   // Dynamic Background Calculation
   const dynamicImageURL = getBackgroundImage(code, isDayTheme);
+  const isNightMode = Number(isDayTheme) === 0;
 
   return (
     <>
-      <div className="app-background" style={{ backgroundImage: `url(${dynamicImageURL})` }}></div>
-      <div className="app-background-overlay"></div>
+      <div
+        className="app-background"
+        style={{
+          backgroundImage: `url(${dynamicImageURL})`,
+          filter: isNightMode ? 'brightness(0.62) saturate(0.8)' : 'none',
+          backgroundColor: isNightMode ? '#071a2a' : '#1d6bd1'
+        }}
+      ></div>
+      <div className="app-background-overlay" style={{ background: isNightMode ? 'linear-gradient(to bottom, rgba(2,6,23,0.22), rgba(2,6,23,0.7))' : 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5))' }}></div>
       
       <div>
         <div className="header-nav">
@@ -217,7 +225,14 @@ function App() {
         <div className="app-grid">
           
           <div>
-            <div className="main-card" style={{ backgroundImage: `url(${dynamicImageURL})` }}>
+            <div
+              className="main-card"
+              style={{
+                backgroundImage: `url(${dynamicImageURL})`,
+                filter: isNightMode ? 'brightness(0.72) saturate(0.9)' : 'none',
+                backgroundColor: isNightMode ? '#0b1a2d' : '#1d6bd1'
+              }}
+            >
               <div className="main-card-header">
                 <span className="font-semibold">{cardDayStr}</span>
                 <span className="text-muted">{cardTimeStr}</span>
