@@ -193,12 +193,10 @@ function App() {
       <div
         className="app-background"
         style={{
-          backgroundImage: `url(${dynamicImageURL})`,
-          filter: isNightMode ? 'brightness(0.62) saturate(0.8)' : 'none',
-          backgroundColor: isNightMode ? '#071a2a' : '#1d6bd1'
+          backgroundImage: `url(${dynamicImageURL})`
         }}
       ></div>
-      <div className="app-background-overlay" style={{ background: isNightMode ? 'linear-gradient(to bottom, rgba(2,6,23,0.22), rgba(2,6,23,0.7))' : 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5))' }}></div>
+      <div className="app-background-overlay"></div>
       
       <div>
         <div className="top-panel">
@@ -284,9 +282,8 @@ function App() {
             </div>
             
             <div className="hourly-container">
-              {weather.hourly.time.slice(selectedDayIndex * 24, (selectedDayIndex * 24) + 12).map((time, idx) => {
-                const globalHourIndex = (selectedDayIndex * 24) + idx;
-                // Active if specifically selected, or if nothing is selected and it's "Now" (index 0 on today)
+              {weather.hourly.time.slice(0, 24).map((time, idx) => {
+                const globalHourIndex = idx;
                 const isActive = selectedHourIndex === globalHourIndex || (selectedHourIndex === null && idx === 0 && isToday);
                 const hourCode = weather.hourly.weather_code[globalHourIndex];
                 const hourIsDay = weather.hourly.is_day[globalHourIndex];
