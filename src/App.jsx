@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { 
   Search, MapPin, Wind, Droplets, ThermometerSun, 
-  Sun, CloudRain, Cloud, CloudLightning, ChevronLeft, MoreHorizontal, CloudSun, Moon
+  Sun, CloudRain, Cloud, CloudLightning, CloudSun, Moon, Navigation
 } from 'lucide-react';
 import './index.css';
 
@@ -201,25 +201,36 @@ function App() {
       <div className="app-background-overlay" style={{ background: isNightMode ? 'linear-gradient(to bottom, rgba(2,6,23,0.22), rgba(2,6,23,0.7))' : 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5))' }}></div>
       
       <div>
-        <div className="header-nav">
-          <button className="header-btn" onClick={getUserLocation}><ChevronLeft size={24} /></button>
-          <div className="header-location">
-            <div className="city-name">{locationName}</div>
-            <div className="text-muted text-sm">{dateStr}</div>
-          </div>
-          <button className="header-btn"><MoreHorizontal size={24} /></button>
-        </div>
+        <div className="top-panel">
+          <div className="header-nav">
+            <div className="header-time">
+              <span>{currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).toLowerCase()}</span>
+            </div>
 
-        <div className="search-wrapper">
-          <Search className="text-muted" size={20} />
-          <input 
-            type="text" 
-            placeholder="Search For City" 
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={searchLocation}
-          />
-          <MapPin className="text-muted" size={20} />
+            <div className="header-location">
+              <div className="city-name">{locationName}</div>
+              <div className="text-muted text-sm">
+                {currentTime.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+              </div>
+            </div>
+
+            <button className="header-btn live-tracking-btn" onClick={getUserLocation} aria-label="Live location tracking">
+              <Navigation size={18} />
+              <span>Live</span>
+            </button>
+          </div>
+
+          <div className="search-wrapper">
+            <Search className="text-muted" size={20} />
+            <input 
+              type="text" 
+              placeholder="Search For City" 
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={searchLocation}
+            />
+            <MapPin className="text-muted" size={20} />
+          </div>
         </div>
 
         <div className="app-grid">
