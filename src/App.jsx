@@ -2,20 +2,27 @@ import { useState, useEffect } from 'react';
 import { 
   Search, MapPin, Wind, Droplets, Sun, 
   CloudRain, Cloud, ThermometerSun, Eye,
-  Navigation
+  Navigation, Compass, Clock
 } from 'lucide-react';
 import './index.css';
 
-// Using open-meteo (no API key required) and geocoding api for location search
 const API_URL = "https://api.open-meteo.com/v1/forecast";
 const GEO_URL = "https://geocoding-api.open-meteo.com/v1/search";
+const REVERSE_GEO_URL = "https://nominatim.openstreetmap.org/reverse"; // Free reverse geocoding
 
 function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState(null);
-  const [locationName, setLocationName] = useState('London');
+  const [locationName, setLocationName] = useState('London, United Kingdom');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentTime, setCurrentTime] = useState(new Date()); // Added live clock state
+
+  // Step 9: Live ticking clock
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const fetchWeather = async (lat, lon, name) => {
     setLoading(true);
@@ -27,11 +34,39 @@ function App() {
       if (!response.ok) throw new Error('Failed to fetch weather data');
       const data = await response.json();
       setWeather(data);
-      setLocationName(name);
+      if (name) setLocationName(name);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Step 7: Auto-detect Location feature
+  const getUserLocation = () => {
+    setLoading(true);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          try {
+            // Fetch city name from coordinates
+            const res = await fetch(`${REVERSE_GEO_URL}?format=json&lat=${latitude}&lon=${longitude}`);
+            const data = await res.json();
+            const city = data.address.city || data.address.town || data.address.village || 'Your Location';
+            fetchWeather(latitude, longitude, `${city}, ${data.address.country || ''}`);
+          } catch (e) {
+            // Fallback if reverse geocoding fails
+            fetchWeather(latitude, longitude, "Current Location");
+          }
+        },
+        () => {
+          // If user denies location, fallback to London
+          fetchWeather(51.5085, -0.1257, 'London, United Kingdom');
+        }
+      );
+    } else {
+      fetchWeather(51.5085, -0.1257, 'London, United Kingdom');
     }
   };
 
@@ -56,39 +91,61 @@ function App() {
     }
   };
 
-  // Initial load
+  // Initial load auto-detects location
   useEffect(() => {
-    fetchWeather(51.5085, -0.1257, 'London, United Kingdom');
+    getUserLocation();
   }, []);
 
   const getWeatherIcon = (code, isLarge = false) => {
     const props = { className: isLarge ? 'weather-icon-large' : 'text-accent', size: isLarge ? 120 : 32 };
-    // Simplified WMO Weather interpretation codes
     if (code === 0) return <Sun {...props} />;
     if (code > 0 && code < 4) return <Cloud {...props} />;
     if (code >= 51 && code <= 67) return <CloudRain {...props} />;
-    if (code >= 71 && code <= 77) return <CloudRain {...props} />; // Snow (simplified to rain icon for this demo)
+    if (code >= 71 && code <= 77) return <CloudRain {...props} />; 
     return <Sun {...props} />;
   };
 
+  // Helper for hourly format
+  const formatHour = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
   if (loading && !weather) {
-    return <div className="status-message">Loading amazing weather...</div>;
+    return <div className="status-message">Locating and loading amazing weather...</div>;
   }
 
   return (
     <div className="app-container">
       {/* Left Sidebar - Current Weather */}
       <div className="dashboard-left">
-        <div className="search-container">
-          <Search className="search-icon" size={20} />
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Search for places..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={searchLocation}
-          />
+        
+        {/* Live Clock Header */}
+        <div className="flex items-center justify-between mb-4" style={{ padding: '0 0.5rem' }}>
+          <div className="text-xl font-bold">{currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</div>
+          <div className="text-sm text-gray-400">{currentTime.toLocaleDateString([], { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+        </div>
+
+        <div className="search-container flex gap-2">
+          <div style={{ position: 'relative', flex: 1 }}>
+            <Search className="search-icon" size={20} />
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search for places..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={searchLocation}
+            />
+          </div>
+          <button 
+            onClick={getUserLocation}
+            className="glass-panel" 
+            style={{ padding: '0 1rem', display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+            title="Use My Location"
+          >
+            <Compass className="text-accent" size={24} />
+          </button>
         </div>
 
         {error ? (
@@ -97,6 +154,9 @@ function App() {
           </div>
         ) : weather && (
           <div className="glass-panel current-weather">
+            <div className="live-badge">
+              <div className="live-dot"></div> LIVE
+            </div>
             {getWeatherIcon(weather.current.weather_code, true)}
             <div className="temperature">
               {Math.round(weather.current.temperature_2m)}°
@@ -118,6 +178,26 @@ function App() {
       {/* Right Content - Highlights & Forecast */}
       {weather && !error && (
         <div className="dashboard-right">
+          
+          {/* Step 8: Hourly Forecast Timeline */}
+          <div className="glass-panel">
+            <h2 className="highlights-header flex items-center gap-2">
+              <Clock size={20} className="text-accent"/> Today's Hourly Forecast
+            </h2>
+            <div className="forecast-container">
+              {/* Only show the next 12 hours */}
+              {weather.hourly.time.slice(0, 12).map((time, index) => (
+                <div key={time} className="forecast-card glass-panel" style={{ minWidth: '100px', padding: '0.8rem' }}>
+                  <span className="forecast-time">{index === 0 ? 'Now' : formatHour(time)}</span>
+                  {getWeatherIcon(weather.hourly.weather_code[index])}
+                  <div className="forecast-temp">
+                    {Math.round(weather.hourly.temperature_2m[index])}°
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Today's Highlights */}
           <div className="glass-panel">
             <h2 className="highlights-header">Today's Highlights</h2>
@@ -171,7 +251,7 @@ function App() {
             </div>
           </div>
 
-          {/* Forecast */}
+          {/* 7-Day Forecast */}
           <div className="glass-panel">
             <h2 className="highlights-header">7-Day Forecast</h2>
             <div className="forecast-container">
