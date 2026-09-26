@@ -1,220 +1,141 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 :root {
-  --bg-app: #E4EDF7;
-  --card-bg: #FFFFFF;
-  --card-light: #F4F7FC;
-  --blue-main: #2A79F8;
-  --text-main: #181E29;
-  --text-muted: #828CA1;
-  --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.05);
+  --blue-solid: #3B82F6;
+  --blue-gradient: linear-gradient(135deg, #4DA2FF 0%, #0B61F4 100%);
+  --blue-glow: rgba(11, 97, 244, 0.4);
+  --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-html, body {
-  width: 100%;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { width: 100%; overflow-x: hidden; margin: 0; padding: 0; }
+body { 
+  font-family: 'Poppins', sans-serif; 
+  color: #FFFFFF; /* Global white text */
+  min-height: 100vh; 
+  text-shadow: 0 2px 10px rgba(0,0,0,0.4); 
 }
 
-body {
-  font-family: 'Poppins', sans-serif;
-  color: var(--text-main);
-  min-height: 100vh;
+/* 1. ANIMATED REALISTIC BACKGROUNDS */
+@keyframes subtleZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
 }
-
-/* --- DYNAMIC BACKGROUND LAYERS --- */
 .app-background {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background-size: cover;
-  background-position: center;
-  z-index: -2;
-  transition: background-image 0.5s ease-in-out;
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background-size: cover; background-position: center; z-index: -2;
+  transition: background-image 0.5s ease;
+  animation: subtleZoom 30s infinite alternate ease-in-out;
 }
 .app-background-overlay {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(228, 237, 247, 0.82); /* Keeps Figma aesthetic while showing image */
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  z-index: -1;
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5)); z-index: -1;
 }
 
-#root {
-  width: 100%;
-  max-width: 1000px;
-  padding: 2rem 1.5rem;
-  margin: 0 auto;
+#root { width: 100%; max-width: 1100px; padding: 2rem 1.5rem; margin: 0 auto; }
+
+/* 2. STUNNING ENTRANCE ANIMATIONS */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.header-nav { animation: fadeInUp 0.6s ease-out forwards; }
+.search-wrapper { animation: fadeInUp 0.7s ease-out forwards; }
+.main-card { animation: fadeInUp 0.8s ease-out forwards; }
+.glass-panel { background: transparent; border: 1px solid rgba(255,255,255,0.6); box-shadow: none; backdrop-filter: none; padding: 0; animation: fadeInUp 0.9s ease-out forwards; }
+
+@keyframes floatIcon {
+  0% { transform: translateY(0px); filter: drop-shadow(0 10px 15px rgba(255,255,255,0.2)); }
+  50% { transform: translateY(-12px); filter: drop-shadow(0 20px 20px rgba(255,255,255,0.4)); }
+  100% { transform: translateY(0px); filter: drop-shadow(0 10px 15px rgba(255,255,255,0.2)); }
 }
 
-/* Typography */
-.text-muted { color: var(--text-muted); }
-.text-main { color: var(--text-main); }
-.font-semibold { font-weight: 600; }
-.font-medium { font-weight: 500; }
-.text-sm { font-size: 0.85rem; }
-.text-xs { font-size: 0.75rem; }
-
-/* Top Header & Search */
+/* Header */
 .header-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; width: 100%; }
-.header-btn { width: 45px; height: 45px; border-radius: 50%; background: var(--card-bg); display: flex; align-items: center; justify-content: center; border: none; box-shadow: var(--shadow-soft); cursor: pointer; color: var(--text-main); flex-shrink: 0; }
-.header-location { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; padding: 0 0.5rem; }
-.city-name { font-size: 1.2rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.header-btn { width: 45px; height: 45px; border-radius: 50%; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.3); cursor: pointer; color: #FFFFFF; flex-shrink: 0; transition: all 0.3s ease; }
+.header-btn:hover { background: rgba(0,0,0,0.5); transform: scale(1.1); }
+.header-location { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0; min-width: 0; }
+.city-name { font-size: 1.4rem; font-weight: 600; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
+.date-sub { font-size: 0.9rem; color: rgba(255,255,255,0.8); font-weight: 500; }
+.text-muted { color: rgba(255,255,255,0.7) !important; }
 
-/* Search Bar Wrapper */
-.search-wrapper { background: var(--card-bg); border-radius: 30px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; box-shadow: var(--shadow-soft); margin-bottom: 2rem; width: 100%; }
-.search-wrapper input { border: none; outline: none; width: 100%; font-family: 'Poppins', sans-serif; font-size: 1rem; color: var(--text-main); background: transparent; }
-.search-wrapper input::placeholder { color: var(--text-muted); }
+/* Search */
+.search-wrapper { background: rgba(0,0,0,0.3); border-radius: 30px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; width: 100%; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.3); transition: all 0.3s ease; }
+.search-wrapper:focus-within { background: rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.4); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+.search-wrapper input { border: none !important; outline: none !important; box-shadow: none !important; width: 100%; font-family: 'Poppins', sans-serif; font-size: 1rem; color: #FFFFFF; background: transparent !important; -webkit-appearance: none; }
+.search-wrapper input::placeholder { color: rgba(255,255,255,0.6); }
 
-/* Grid Layout */
+/* Grid */
 .app-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; width: 100%; }
 .app-grid > div { min-width: 0; width: 100%; }
-@media (min-width: 900px) { .app-grid { grid-template-columns: 1.2fr 1fr; gap: 4rem; } }
+@media (min-width: 900px) { .app-grid { grid-template-columns: 1.2fr 1fr; gap: 3rem; } }
 
-/* --- DYNAMIC MAIN CARD --- */
-.main-card {
-  border-radius: 40px;
-  padding: 2.5rem 2rem;
-  box-shadow: var(--shadow-soft);
-  margin-bottom: 2rem;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  color: white; /* Contrast against image */
-  transition: background-image 0.5s ease-in-out;
-}
-
-/* Dark Gradient Overlay so text pops over any image */
-.main-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6));
-  z-index: 1;
-}
-
-/* Ensure content sits above overlay */
+/* MAIN CARD */
+.main-card { border-radius: 40px; padding: 2.5rem 2rem; box-shadow: 0 20px 50px rgba(0,0,0,0.5); margin-bottom: 2rem; width: 100%; position: relative; overflow: hidden; background-size: cover; background-position: center; color: white; transition: background-image 0.5s ease; border: 1px solid rgba(255,255,255,0.1); }
+.main-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.8)); z-index: 1; }
 .main-card > * { position: relative; z-index: 2; }
-
-/* Adjust muted text inside dynamic card */
-.main-card .text-muted { color: rgba(255,255,255,0.85); }
-
-.main-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.main-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; font-weight: 500; font-size: 1.1rem; }
 .main-card-body { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-
-.huge-temp { font-size: clamp(3.5rem, 12vw, 5.5rem); font-weight: 500; line-height: 1; letter-spacing: -2px; }
-.huge-temp span { font-size: clamp(2rem, 6vw, 3rem); vertical-align: text-top; }
-
+.huge-temp { font-size: clamp(4rem, 12vw, 6rem); font-weight: 600; line-height: 1; letter-spacing: -2px; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.huge-temp span { font-size: clamp(2rem, 6vw, 3rem); vertical-align: text-top; opacity: 0.8; }
+.weather-icon-huge { width: clamp(90px, 20vw, 140px); height: clamp(90px, 20vw, 140px); color: #FFFFFF; flex-shrink: 0; animation: floatIcon 4s infinite ease-in-out; }
 .real-feel { font-size: 1.1rem; color: rgba(255,255,255,0.85); margin-bottom: 2.5rem; font-weight: 500; }
 
-.weather-icon-huge {
-  width: clamp(80px, 20vw, 120px);
-  height: clamp(80px, 20vw, 120px);
-  color: #FFFFFF; 
-  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
-  flex-shrink: 0;
-}
+/* Mini Cards */
+.mini-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; width: 100%; margin-top: 2rem; }
+.main-card .mini-card { background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.3); border-radius: 24px; padding: 1.5rem 0.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.8rem; min-width: 0; color: white; transition: transform 0.3s ease; }
+.main-card .mini-card:hover { transform: translateY(-5px); background: rgba(0, 0, 0, 0.5); }
+.mini-card-icon { color: white; }
+.mini-card-title { font-size: 0.85rem; color: rgba(255,255,255,0.7); font-weight: 500; }
+.mini-card-value { font-size: 1rem; font-weight: 600; color: white; }
 
-/* --- GLASSMORPHISM MINI CARDS INSIDE MAIN BLOCK --- */
-.mini-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; width: 100%; }
-.main-card .mini-card {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 24px;
-  padding: 1.5rem 0.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.8rem;
-  min-width: 0;
-  color: white;
-}
-.main-card .mini-card-icon { color: white; }
-.main-card .mini-card-title { font-size: 0.85rem; color: rgba(255,255,255,0.85); font-weight: 500; }
-.main-card .mini-card-value { font-size: 0.95rem; font-weight: 600; color: white; }
-
-/* Hourly Forecast */
-.section-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 1.5rem; padding-left: 0.5rem; }
-.hourly-container { display: flex; gap: 1.5rem; overflow-x: auto; padding-bottom: 1rem; scrollbar-width: none; width: 100%; }
+/* Hourly */
+.section-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 1.5rem; color: #FFFFFF; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+.hourly-container { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scrollbar-width: none; width: 100%; }
 .hourly-container::-webkit-scrollbar { display: none; }
-.hourly-item { display: flex; flex-direction: column; align-items: center; gap: 1rem; min-width: 65px; padding: 1rem 0; border-radius: 30px; transition: background 0.3s; flex-shrink: 0; }
-.hourly-item.active { background: var(--card-bg); box-shadow: var(--shadow-soft); }
-.hourly-time { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
-.hourly-item.active .hourly-time { color: var(--text-main); }
+.hourly-item { display: flex; flex-direction: column; align-items: center; gap: 1rem; min-width: 75px; padding: 1.2rem 0; border-radius: 25px; transition: all 0.3s ease; flex-shrink: 0; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+.hourly-item:hover { transform: translateY(-5px); background: rgba(0,0,0,0.5); }
+.hourly-item.active { background: rgba(255, 255, 255, 0.25); box-shadow: 0 15px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.6) !important; }
+.hourly-time { font-size: 0.9rem; color: rgba(255,255,255,0.8); font-weight: 500; }
+.hourly-item.active .hourly-time { color: #FFFFFF; }
 .hourly-temp { font-size: 1.2rem; font-weight: 600; }
 
-/* Tomorrow Card */
-.tomorrow-card { background: var(--blue-main); border-radius: 30px; padding: 1.5rem 2rem; color: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 15px 30px rgba(42, 121, 248, 0.3); margin-top: 2rem; width: 100%; }
+/* Tomorrow */
+.tomorrow-card { background: rgba(255, 255, 255, 0.15); border-radius: 30px; padding: 1.5rem 2rem; color: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); margin-top: 1rem; margin-bottom: 2rem; width: 100%; cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(15px); }
+.tomorrow-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4); }
 .tomorrow-left { display: flex; align-items: center; gap: 1.2rem; min-width: 0; }
-.tomorrow-title { font-size: 1.1rem; font-weight: 600; }
-.tomorrow-desc { font-size: 0.85rem; opacity: 0.9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.tomorrow-temps { font-size: 1rem; font-weight: 500; opacity: 0.9; flex-shrink: 0; }
+.tomorrow-title { font-size: 1.2rem; font-weight: 600; }
+.tomorrow-desc { font-size: 0.9rem; opacity: 0.9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tomorrow-temps { font-size: 1.1rem; font-weight: 600; opacity: 1; flex-shrink: 0; }
 
-/* 7-Day Extension */
-.weekly-container { background: var(--card-bg); border-radius: 30px; padding: 1rem 1.5rem; box-shadow: var(--shadow-soft); margin-top: 1.5rem; width: 100%; }
-.weekly-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); cursor: pointer; transition: all 0.2s ease; }
+/* Weekly List */
+.weekly-container { background: rgba(0,0,0,0.3); backdrop-filter: blur(15px); border-radius: 30px; padding: 1rem 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.4); margin-top: 1.5rem; width: 100%; border: 1px solid rgba(255,255,255,0.3); }
+.weekly-item { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: all 0.3s ease; }
 .weekly-item:last-child { border-bottom: none; padding-bottom: 0; }
-.weekly-item:hover { transform: translateX(5px); }
-.weekly-day { flex: 1; font-weight: 500; font-size: 0.95rem; }
-.weekly-icon { flex: 1; display: flex; justify-content: center; }
-.weekly-temps { flex: 1; display: flex; justify-content: flex-end; font-size: 0.95rem; }
-.ml-2 { margin-left: 0.5rem; }
+.weekly-item:hover { transform: translateX(8px); background: rgba(255,255,255,0.05); border-radius: 10px; padding-left: 1rem; padding-right: 1rem; margin: 0 -1rem; border-bottom: 1px solid transparent; }
+.weekly-day { flex: 1; font-weight: 500; font-size: 1rem; color: #FFFFFF; }
+.weekly-icon { flex: 1; display: flex; justify-content: center; color: #FFFFFF; }
+.weekly-temps { flex: 1; display: flex; justify-content: flex-end; font-size: 1rem; font-weight: 600; color: #FFFFFF; }
+.ml-2 { margin-left: 0.5rem; color: rgba(255,255,255,0.7); font-weight: 400; }
 
-/* Active Day override */
-.weekly-item.active-day { background: var(--blue-main); color: white; border-radius: 20px; padding: 1rem 1.5rem; margin: 0.5rem -1rem; box-shadow: 0 10px 20px rgba(42, 121, 248, 0.3); border-bottom: none; }
-.weekly-item.active-day .text-muted, .weekly-item.active-day .weekly-icon { color: rgba(255,255,255,0.9) !important; }
+.weekly-item.active-day { background: rgba(255, 255, 255, 0.25); border-radius: 20px; padding: 1.2rem 1.5rem; margin: 0.5rem -1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.6) !important; backdrop-filter: blur(15px); }
+.weekly-item.active-day:hover { transform: scale(1.02); margin-left: -1rem; padding-left: 1.5rem; }
+.weekly-item.active-day .ml-2 { color: rgba(255,255,255,0.9); }
 
 /* Loading */
-.loading-screen { height: 100vh; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--text-muted); }
+.loading-screen { height: 100vh; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #FFFFFF; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
 
-/* MOBILE POLISH */
+/* Mobile */
 @media (max-width: 500px) {
   #root { padding: 1rem; }
+  .main-card { padding: 2.5rem 1.5rem; border-radius: 35px; }
   .mini-cards-grid { gap: 0.5rem; }
-  .main-card .mini-card { padding: 1.2rem 0.2rem; border-radius: 18px; }
-  .main-card { padding: 2rem 1.2rem; border-radius: 30px; }
+  .main-card .mini-card { padding: 1.2rem 0.2rem; border-radius: 20px; }
+  .tomorrow-card { background: rgba(255, 255, 255, 0.15); border-radius: 30px; padding: 1.5rem 2rem; color: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); margin-top: 1rem; margin-bottom: 2rem; width: 100%; cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(15px); }
   .weekly-container { padding: 1rem 1.2rem; }
-  .tomorrow-card { padding: 1.5rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
 }
 
 
-/* --- REALISTIC BACKGROUND FIXES --- */
-/* Remove the heavy blur so the realistic photo is fully visible */
-.app-background-overlay {
-  background: rgba(0, 0, 0, 0.25) !important; 
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
 
-/* Ensure text floating directly on the background is readable against photos */
-.city-name, .section-title {
-  color: #FFFFFF !important;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-}
-.header-location .text-muted {
-  color: rgba(255,255,255,0.9) !important;
-  text-shadow: 0 1px 5px rgba(0,0,0,0.8);
-}
-
-/* Make cards slightly translucent so the realistic background bleeds through beautifully */
-.search-wrapper, .hourly-item.active, .weekly-container {
-  background: rgba(255, 255, 255, 0.85) !important;
-  backdrop-filter: blur(15px);
-}
-
-.header-btn {
-  background: rgba(255, 255, 255, 0.85) !important;
-  backdrop-filter: blur(15px);
-}
+.search-wrapper input:focus, .search-wrapper input:active { outline: none !important; border: none !important; box-shadow: none !important; }
