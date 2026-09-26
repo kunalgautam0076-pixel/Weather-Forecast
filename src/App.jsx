@@ -357,6 +357,9 @@ function App() {
 
         </div>
 
+        <footer className="app-footer">
+          <span>Developed by Kunal Gautam</span>
+        </footer>
       </div>
     </>
   );

@@ -35,6 +35,20 @@ body {
 
 #root { width: 100%; max-width: 1100px; padding: 2rem 1.5rem; margin: 0 auto; }
 
+.app-footer {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 0.5rem 0;
+  text-align: center;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
 /* 2. STUNNING ENTRANCE ANIMATIONS */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(30px); }
@@ -54,7 +68,7 @@ body {
 /* Header */
 .top-panel { background: transparent; padding: 0.5rem 0 1rem; }
 .header-nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; margin-bottom: 2rem; width: 100%; gap: 1rem; background: transparent; padding: 0.25rem 0; }
-.header-btn { width: 45px; height: 45px; border-radius: 50%; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.3); cursor: pointer; color: #FFFFFF; flex-shrink: 0; transition: all 0.3s ease; }
+.header-btn { width: 45px; height: 45px; border-radius: 50%; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.3); cursor: pointer; color: #FFFFFF; flex-shrink: 0; transition: all 0.3s ease; }
 .header-btn:hover { background: rgba(0,0,0,0.5); transform: scale(1.1); }
 .header-btn.live-tracking-btn { width: auto; height: auto; padding: 0.7rem 1rem; border-radius: 999px; gap: 0.5rem; font-weight: 600; justify-self: end; }
 .header-time { display: flex; align-items: center; justify-content: flex-start; font-size: 1rem; font-weight: 500; color: rgba(255,255,255,0.9); min-width: 0; }
@@ -64,8 +78,8 @@ body {
 .text-muted { color: rgba(255,255,255,0.7) !important; }
 
 /* Search */
-.search-wrapper { background: rgba(0,0,0,0.25); border-radius: 30px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; width: 100%; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.3); transition: all 0.3s ease; }
-.search-wrapper:focus-within { background: rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.4); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+.search-wrapper { background: rgba(0,0,0,0.25); border-radius: 30px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; width: 100%; border: 1px solid rgba(255,255,255,0.3); transition: all 0.3s ease; }
+.search-wrapper:focus-within { background: rgba(0,0,0,0.45); border-color: rgba(255,255,255,0.4); box-shadow: 0 0 20px rgba(255,255,255,0.08); }
 .search-wrapper input { border: none !important; outline: none !important; box-shadow: none !important; width: 100%; font-family: 'Poppins', sans-serif; font-size: 1rem; color: #FFFFFF; background: transparent !important; -webkit-appearance: none; }
 .search-wrapper input::placeholder { color: rgba(255,255,255,0.6); }
 
@@ -87,7 +101,7 @@ body {
 
 /* Mini Cards */
 .mini-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; width: 100%; margin-top: 2rem; }
-.main-card .mini-card { background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.3); border-radius: 24px; padding: 1.5rem 0.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.8rem; min-width: 0; color: white; transition: transform 0.3s ease; }
+.main-card .mini-card { background: rgba(0, 0, 0, 0.28); border: 1px solid rgba(255,255,255,0.2); border-radius: 24px; padding: 1.5rem 0.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.8rem; min-width: 0; color: white; transition: transform 0.3s ease; }
 .main-card .mini-card:hover { transform: translateY(-5px); background: rgba(0, 0, 0, 0.5); }
 .mini-card-icon { color: white; }
 .mini-card-title { font-size: 0.85rem; color: rgba(255,255,255,0.7); font-weight: 500; }
@@ -97,7 +111,7 @@ body {
 .section-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 1.5rem; color: #FFFFFF; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
 .hourly-container { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scrollbar-width: none; width: 100%; }
 .hourly-container::-webkit-scrollbar { display: none; }
-.hourly-item { display: flex; flex-direction: column; align-items: center; gap: 1rem; min-width: 75px; padding: 1.2rem 0; border-radius: 25px; transition: all 0.3s ease; flex-shrink: 0; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+.hourly-item { display: flex; flex-direction: column; align-items: center; gap: 1rem; min-width: 75px; padding: 1.2rem 0; border-radius: 25px; transition: all 0.3s ease; flex-shrink: 0; background: rgba(0,0,0,0.24); border: 1px solid rgba(255,255,255,0.1); }
 .hourly-item:hover { transform: translateY(-5px); background: rgba(0,0,0,0.5); }
 .hourly-item.active { background: rgba(255, 255, 255, 0.25); box-shadow: 0 15px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.6) !important; }
 .hourly-time { font-size: 0.9rem; color: rgba(255,255,255,0.8); font-weight: 500; }
@@ -105,15 +119,15 @@ body {
 .hourly-temp { font-size: 1.2rem; font-weight: 600; }
 
 /* Tomorrow */
-.tomorrow-card { background: rgba(255, 255, 255, 0.15); border-radius: 30px; padding: 1.5rem 2rem; color: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); margin-top: 1rem; margin-bottom: 2rem; width: 100%; cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(15px); }
-.tomorrow-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4); }
+.tomorrow-card { background: rgba(255, 255, 255, 0.12); border-radius: 30px; padding: 1.5rem 2rem; color: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); margin-top: 1rem; margin-bottom: 2rem; width: 100%; cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2); }
+.tomorrow-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); }
 .tomorrow-left { display: flex; align-items: center; gap: 1.2rem; min-width: 0; }
 .tomorrow-title { font-size: 1.2rem; font-weight: 600; }
 .tomorrow-desc { font-size: 0.9rem; opacity: 0.9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tomorrow-temps { font-size: 1.1rem; font-weight: 600; opacity: 1; flex-shrink: 0; }
 
 /* Weekly List */
-.weekly-container { background: rgba(0,0,0,0.3); backdrop-filter: blur(15px); border-radius: 30px; padding: 1rem 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.4); margin-top: 1.5rem; width: 100%; border: 1px solid rgba(255,255,255,0.3); }
+.weekly-container { background: rgba(0,0,0,0.25); border-radius: 30px; padding: 1rem 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.2); margin-top: 1.5rem; width: 100%; border: 1px solid rgba(255,255,255,0.2); }
 .weekly-item { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: all 0.3s ease; }
 .weekly-item:last-child { border-bottom: none; padding-bottom: 0; }
 .weekly-item:hover { transform: translateX(8px); background: rgba(255,255,255,0.05); border-radius: 10px; padding-left: 1rem; padding-right: 1rem; margin: 0 -1rem; border-bottom: 1px solid transparent; }
@@ -122,7 +136,7 @@ body {
 .weekly-temps { flex: 1; display: flex; justify-content: flex-end; font-size: 1rem; font-weight: 600; color: #FFFFFF; }
 .ml-2 { margin-left: 0.5rem; color: rgba(255,255,255,0.7); font-weight: 400; }
 
-.weekly-item.active-day { background: rgba(255, 255, 255, 0.25); border-radius: 20px; padding: 1.2rem 1.5rem; margin: 0.5rem -1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.6) !important; backdrop-filter: blur(15px); }
+.weekly-item.active-day { background: rgba(255, 255, 255, 0.18); border-radius: 20px; padding: 1.2rem 1.5rem; margin: 0.5rem -1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.35) !important; }
 .weekly-item.active-day:hover { transform: scale(1.02); margin-left: -1rem; padding-left: 1.5rem; }
 .weekly-item.active-day .ml-2 { color: rgba(255,255,255,0.9); }
 
@@ -132,13 +146,26 @@ body {
 /* Mobile */
 @media (max-width: 500px) {
   #root { padding: 1rem; }
+  .top-panel { padding-top: 0.3rem; }
+  .header-nav { grid-template-columns: 1fr auto 1fr; gap: 0.5rem; margin-bottom: 1.2rem; }
+  .city-name { font-size: 1.05rem; }
+  .header-time { font-size: 0.8rem; }
   .main-card { padding: 2.5rem 1.5rem; border-radius: 35px; }
   .mini-cards-grid { gap: 0.5rem; }
   .main-card .mini-card { padding: 1.2rem 0.2rem; border-radius: 20px; }
-  .tomorrow-card { background: rgba(255, 255, 255, 0.15); border-radius: 30px; padding: 1.5rem 2rem; color: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); margin-top: 1rem; margin-bottom: 2rem; width: 100%; cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(15px); }
+  .tomorrow-card { padding: 1rem 1rem; border-radius: 24px; }
   .weekly-container { padding: 1rem 1.2rem; }
+  .app-footer {
+    font-size: 0.78rem;
+    padding: 0.4rem 0;
+    margin-top: 1.5rem;
+  }
 }
 
-
+@media (max-width: 700px) {
+  .header-nav { gap: 0.6rem; }
+  .header-btn.live-tracking-btn { padding: 0.55rem 0.8rem; }
+  .search-wrapper { padding: 0.9rem 1rem; }
+}
 
 .search-wrapper input:focus, .search-wrapper input:active { outline: none !important; border: none !important; box-shadow: none !important; }
